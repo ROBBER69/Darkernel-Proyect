@@ -9,6 +9,7 @@
  * Copyright (C)  2001 Russell King
  *           (C)  2003 Venkatesh Pallipadi <venkatesh.pallipadi@intel.com>,
  *                     Jun Nakajima <jun.nakajima@intel.com>
+ *                2012 DarkRoom Team <>,
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
@@ -733,6 +734,7 @@ static void __exit cpufreq_gov_dbs_exit(void)
 }
 
 MODULE_AUTHOR("Mike Turquette <mturquette@ti.com>");
+MODULE_AUTHOR("DarkRoom Team <>");
 MODULE_DESCRIPTION("'cpufreq_hotplug' - cpufreq governor for dynamic frequency scaling and CPU hotplugging");
 MODULE_LICENSE("GPL");
 
