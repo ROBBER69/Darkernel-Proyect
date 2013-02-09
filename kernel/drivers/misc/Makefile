@@ -51,6 +51,9 @@ obj-$(CONFIG_WL127X_RFKILL)	+= wl127x-rfkill.o
 obj-$(CONFIG_APANIC)		+= apanic.o
 obj-$(CONFIG_SENSORS_AK8975)	+= akm8975.o
 obj-$(CONFIG_OMAP_DIE_TEMP_SENSOR)	+= omap_temp_sensor.o
+obj-$(CONFIG_CUSTOM_VOLTAGE)  += custom_voltage.o
+obj-$(CONFIG_FSYNC_CONTROL)  += fsync_control.o
+obj-$(CONFIG_SOUND_CONTROL)  += sound_control.o
 #LGE_SJIT 09/28/2011 [mohamed.khadri@lge.com] BT control path 
 obj-$(CONFIG_LBEE9QMB_RFKILL)	+= lbee9qmb-rfkill.o
 obj-$(CONFIG_BD_ADDRESS)       += bd_address.o
@@ -58,7 +61,7 @@ obj-$(CONFIG_BD_ADDRESS)       += bd_address.o
 obj-$(CONFIG_CDC_TCXO)		+= cdc_tcxo.o
 
 # LGE_CHANGE [younglae.kim@lge.com] 2012-03-26 mpu3050 will be used for P2
-# LGE_SJIT 2011-11-24 [dojip.kim@lge.com] will be use inv_mpu instead of this
+# LGE_SJI 2011-11-24 [dojip.kim@lge.com] will be use inv_mpu instead of this
 # LGE_CHANGE [eugene.goh] 2011-07-01
 obj-$(CONFIG_MPU_SENSORS_MPU3050)   += mpu3050/
 #obj-y				+= inv_mpu/

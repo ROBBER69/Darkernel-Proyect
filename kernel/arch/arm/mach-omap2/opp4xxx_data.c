@@ -29,6 +29,9 @@
 #include "omap_opp_data.h"
 #include "pm.h"
 
+#ifdef CONFIG_CUSTOM_VOLTAGE
+#include <linux/custom_voltage.h>
+#endif
 /*
  * STD_FUSE_OPP_DPLL_1 contains info about ABB trim type for MPU/IVA.
  * This probably is an ugly location to put the DPLL trim details.. but,
@@ -89,21 +92,20 @@ struct omap4_ldo_abb_trim_data {
  * voltage dependent data for each VDD.
  */
 
-#define OMAP4430_VDD_MPU_OPPOFF_UV		750000   /*75 MHz*/
-#define OMAP4430_VDD_MPU_OPP00_UV		850000   /*150 MHz*/
-#define OMAP4430_VDD_MPU_OPP25_UV		900000   /*250 MHz*/
-#define OMAP4430_VDD_MPU_OPP50_UV		925000   /*350 MHz*/
-#define OMAP4430_VDD_MPU_OPP100_UV		950000   /*450 MHz*/
-#define OMAP4430_VDD_MPU_OPP150_UV		1000000   /*600 MHz*/
-#define OMAP4430_VDD_MPU_OPPTURBO_UV		1050000   /*858 MHz*/
-#define OMAP4430_VDD_MPU_OPPNITRO_UV		1225000   /*1008 MHz*/
-#define OMAP4430_VDD_MPU_OPPNITRO2_UV		1275000   /*1108 MHz*/
-#define OMAP4430_VDD_MPU_OPPNITROSB_UV		1325000   /*1208 MHz*/
-#define OMAP4430_VDD_MPU_OPPNITROSB2_UV	1345000   /*1254 MHz*/
-#define OMAP4430_VDD_MPU_OPPNITROC2_UV		1350000   /*1308 MHz*/
-#define OMAP4430_VDD_MPU_OPPNITROC3_UV		1365000   /*1358 MHz*/
-#define OMAP4430_VDD_MPU_OPPNITROC4_UV		1385000   /*1408 MHz*/
-#define OMAP4430_VDD_MPU_OPPNITROC5_UV		1415000   /*1500 MHz*/
+#define OMAP4430_VDD_MPU_OPPOFF_UV		875000
+#define OMAP4430_VDD_MPU_OPP25_UV		915000
+#define OMAP4430_VDD_MPU_OPP50_UV		925000
+#define OMAP4430_VDD_MPU_OPP75_UV		9500000
+#define OMAP4430_VDD_MPU_OPP100_UV		1000000
+#define OMAP4430_VDD_MPU_OPPTURBO_UV		1150000
+#define OMAP4430_VDD_MPU_OPPNITRO_UV		1250000
+#define OMAP4430_VDD_MPU_OPPNITRO2_UV		1300000
+#define OMAP4430_VDD_MPU_OPPNITROSB_UV		1335000
+#define OMAP4430_VDD_MPU_OPPNITROSB2_UV	1345000
+#define OMAP4430_VDD_MPU_OPPNITROSB3_UV	1355000
+#define OMAP4430_VDD_MPU_OPPNITROSB4_UV	1365000
+#define OMAP4430_VDD_MPU_OPPNITROSB5_UV	1390000
+#define OMAP4430_VDD_MPU_OPPNITROSB6_UV	1410000
 
 
 struct omap_volt_data omap443x_vdd_mpu_volt_data[] = {
@@ -240,9 +242,9 @@ static struct omap_opp_def __initdata omap443x_opp_def_list[] = {
 	/* SGX OPP1 - OPP50 */
 	OPP_INITIALIZER("gpu", "dpll_per_m7x2_ck", "core", true, 307200000, OMAP4430_VDD_CORE_OPP50_UV),
 	/* SGX OPP2 - OPP100 */
-	OPP_INITIALIZER("gpu", "dpll_per_m7x2_ck", "core", true, 384000000, OMAP4430_VDD_CORE_OPP100_UV),
-	/* SGX OPP2 - OPP150 */
-	OPP_INITIALIZER("gpu", "dpll_per_m7x2_ck", "core", true, 460000000, OMAP4430_VDD_CORE_OPP100_OV_UV),
+	OPP_INITIALIZER("gpu", "dpll_per_m7x2_ck", "core", true, 404000000, OMAP4430_VDD_CORE_OPP100_UV),
+	/* SGX OPP4 - OPP100 */
+	OPP_INITIALIZER("gpu", "dpll_per_m7x2_ck", "core", false, 460000000, OMAP4430_VDD_CORE_OPP100_OV_UV),
 	/* FDIF OPP1 - OPP25 */
 	OPP_INITIALIZER("fdif", "fdif_fck", "core", true, 32000000, OMAP4430_VDD_CORE_OPP50_UV),
 	/* FDIF OPP2 - OPP50 */
@@ -760,6 +762,10 @@ int __init omap4_opp_init(void)
 	if (omap4_has_mpu_1_5ghz() && trimmed)
 		omap4_opp_enable("mpu", 1500000000);
 
+	
+#ifdef CONFIG_CUSTOM_VOLTAGE
+	customvoltage_init();
+#endif
 out:
 	return r;
 }
