@@ -29,6 +29,10 @@
 #include "omap_opp_data.h"
 #include "pm.h"
 
+#ifdef CONFIG_LIVE_OC
+#include <linux/live_oc.h>
+#endif
+
 #ifdef CONFIG_CUSTOM_VOLTAGE
 #include <linux/custom_voltage.h>
 #endif
@@ -769,6 +773,10 @@ int __init omap4_opp_init(void)
 	
 #ifdef CONFIG_CUSTOM_VOLTAGE
 	customvoltage_init();
+#endif
+	
+#ifdef CONFIG_LIVE_OC
+	liveoc_init();
 #endif
 
 out:
