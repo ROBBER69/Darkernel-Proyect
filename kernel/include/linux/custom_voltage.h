@@ -3,7 +3,6 @@
 #ifndef _LINUX_CUSTOM_VOLTAGE_H
 #define _LINUX_CUSTOM_VOLTAGE_H
 
-
 extern void customvoltage_register_freqmutex(struct mutex * freqmutex);
 extern void customvoltage_register_dvfsmutex(struct mutex * dvfsmutex);
 extern void customvoltage_init(void);
